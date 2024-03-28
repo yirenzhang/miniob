@@ -50,7 +50,7 @@ void intDate_to_strDate_(const int intDate, std::string& strDate){
 
 
 
-const char *ATTR_TYPE_NAME[] = {"undefined", "chars", "ints", "floats", "booleans"};
+const char *ATTR_TYPE_NAME[] = {"undefined", "chars", "ints", "floats", "booleans", "dates"};
 
 const char *attr_type_to_string(AttrType type)
 {
