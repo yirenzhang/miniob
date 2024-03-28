@@ -96,6 +96,7 @@ public:
   float get_float() const;
   std::string get_string() const;
   bool get_boolean() const;
+  int get_date() const;
 
 private:
   AttrType attr_type_ = UNDEFINED;
