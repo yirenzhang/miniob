@@ -31,6 +31,15 @@ void strDate_to_intDate_(const char* strDate, int& intDate)
     sscanf(dateStr.c_str(), "%d-%d-%d", &year, &month, &day);
     intDate = year * 10000 + month * 100 + day;
 }
+
+int strDate_to_intDate_(const char* strDate)
+{
+    std::string dateStr(strDate);
+    int year, month, day;
+    sscanf(dateStr.c_str(), "%d-%d-%d", &year, &month, &day);
+    year * 10000 + month * 100 + day;
+}
+
 void intDate_to_strDate_(const int intDate, std::string& strDate){
   int year = intDate / 10000;
   int month = (intDate % 10000) / 100;
@@ -114,7 +123,7 @@ void Value::set_data(char *data, int length)
       length_ = length;
     } break;
     case DATES: {
-      num_value_.date_value_ = *(int *)data;
+      num_value_.date_value_ = strDate_to_intDate_(data);
       length_ = length;
     } break;
     default: {
