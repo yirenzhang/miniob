@@ -32,15 +32,20 @@ void strDate_to_intDate_(const char* strDate, int& intDate)
     intDate = year * 10000 + month * 100 + day;
 }
 
-int strDate_to_intDate_(const char* strDate)
+void strDate_to_intDate_(const char* strDate, int& intDate)
 {
     std::string dateStr(strDate);
     int year, month, day;
     sscanf(dateStr.c_str(), "%d-%d-%d", &year, &month, &day);
-    return year * 10000 + month * 100 + day;
+    if(!check_date(year, month, day)){
+      throw RC::INVALID_ARGUMENT;
+    }else{
+      intDate = year * 10000 + month * 100 + day;
+    } 
 }
 
-void intDate_to_strDate_(const int intDate, std::string& strDate){
+std::string intDate_to_strDate_(const int intDate){
+  std::string  strDate;
   int year = intDate / 10000;
   int month = (intDate % 10000) / 100;
   int day = intDate % 100;
@@ -55,6 +60,7 @@ void intDate_to_strDate_(const int intDate, std::string& strDate){
   }
   ss << day;
   strDate = ss.str();
+  return strDate;
 }
 
 
@@ -222,7 +228,7 @@ std::string Value::to_string() const
       os << str_value_;
     } break;
     case DATES: {
-      os << num_value_.date_value_;
+      os << intDate_to_strDate_(num_value_.date_value_);
     } break;
     default: {
       LOG_WARN("unsupported attr type: %d", attr_type_);
