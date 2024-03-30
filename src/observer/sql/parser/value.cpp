@@ -123,7 +123,7 @@ void Value::set_data(char *data, int length)
       length_ = length;
     } break;
     case DATES: {
-      num_value_.date_value_ = strDate_to_intDate_(data);
+      num_value_.date_value_ = *(int *)data;
       length_ = length;
     } break;
     default: {
