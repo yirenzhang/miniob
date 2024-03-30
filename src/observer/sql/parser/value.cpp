@@ -37,7 +37,7 @@ int strDate_to_intDate_(const char* strDate)
     std::string dateStr(strDate);
     int year, month, day;
     sscanf(dateStr.c_str(), "%d-%d-%d", &year, &month, &day);
-    year * 10000 + month * 100 + day;
+    return year * 10000 + month * 100 + day;
 }
 
 void intDate_to_strDate_(const int intDate, std::string& strDate){
