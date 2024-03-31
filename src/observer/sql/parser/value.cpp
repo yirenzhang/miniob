@@ -24,12 +24,13 @@ See the Mulan PSL v2 for more details. */
 bool isLeapYear(int year) {
     return ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0));
 }
-void strDate_to_intDate_(const char* strDate, int& intDate)
+bool check_date(int y, int m, int d)
 {
-    std::string dateStr(strDate);
-    int year, month, day;
-    sscanf(dateStr.c_str(), "%d-%d-%d", &year, &month, &day);
-    intDate = year * 10000 + month * 100 + day;
+    static int mon[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    bool leap = (y%400==0 || (y%100 && y%4==0));
+    return y > 0
+        && (m > 0)&&(m <= 12)
+        && (d > 0)&&(d <= ((m==2 && leap)?1:0) + mon[m]);
 }
 
 void strDate_to_intDate_(const char* strDate, int& intDate)

@@ -116,7 +116,7 @@ DATA                                    RETURN_TOKEN(DATA);
 INFILE                                  RETURN_TOKEN(INFILE);
 EXPLAIN                                 RETURN_TOKEN(EXPLAIN);
 {ID}                                    yylval->string=strdup(yytext); RETURN_TOKEN(ID);
-{QUOTE}[0-9]+-[0-9]+-[0-9]+-{QUOTE}     yylval->string=strdup(yytext); RETURN_TOKEN(DATE_STR);
+{QUOTE}[0-9]+-[0-9]+-[0-9]+{QUOTE}      yylval->string=strdup(yytext); RETURN_TOKEN(DATE_STR);
 "("                                     RETURN_TOKEN(LBRACE);
 ")"                                     RETURN_TOKEN(RBRACE);
 
