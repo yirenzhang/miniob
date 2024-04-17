@@ -43,6 +43,7 @@ enum AggrOp
   AGGR_MAX,
   AGGR_MIN,
   AGGR_COUNT,
+  AGGR_COUNT_ALL,
   AGGR_NONE
 };
 

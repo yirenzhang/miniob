@@ -114,7 +114,12 @@ RC AggregatePhysicalOperator::next()
           }
           result_cells[cell_idx].set_int(result_cells[cell_idx].get_int() + 1);
           break;
-
+        case AggrOp::AGGR_COUNT_ALL:
+          if (cnt == 0) {
+            result_cells.push_back(Value(0));
+          }
+          result_cells[cell_idx].set_int(result_cells[cell_idx].get_int() + 1);
+          break;
         default:
           return RC::UNIMPLENMENT;
       }

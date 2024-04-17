@@ -30,9 +30,16 @@ SelectStmt::~SelectStmt()
 static void wildcard_fields(Table *table, std::vector<Field> &field_metas, AggrOp aggregation=AGGR_NONE)
 {
   const TableMeta &table_meta = table->table_meta();
-  const int        field_num  = table_meta.field_num();
+  const int field_num = table_meta.field_num();
   for (int i = table_meta.sys_field_num(); i < field_num; i++) {
-    field_metas.push_back(Field(table, table_meta.field(i), AggrOp::AGGR_NONE));
+    if (aggregation == AggrOp::AGGR_COUNT)
+    {
+      field_metas.push_back(Field(table, table_meta.field(i), AggrOp::AGGR_COUNT_ALL));
+      break;
+    }else{
+      field_metas.push_back(Field(table, table_meta.field(i), AggrOp::AGGR_NONE));
+    }
+    
   }
 }
 
@@ -44,7 +51,7 @@ RC SelectStmt::create(Db *db, const SelectSqlNode &select_sql, Stmt *&stmt)
   }
 
   // collect tables in `from` statement
-  std::vector<Table *>                     tables;
+  std::vector<Table *> tables;
   std::unordered_map<std::string, Table *> table_map;
   for (size_t i = 0; i < select_sql.relations.size(); i++) {
     const char *table_name = select_sql.relations[i].c_str();
